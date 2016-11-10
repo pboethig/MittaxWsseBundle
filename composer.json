@@ -11,7 +11,8 @@
     "authors": [
         {
             "name": "Peter Böthig",
-            "email": "pboethig@gmail.com"
+            "email": "pboethig@gmail.com",
+            "homepage": "https://github.com/pboethig/mittax-wsse.git"
         }
     ],
     "autoload-dev": {
