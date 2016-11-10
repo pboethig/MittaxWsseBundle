@@ -1,0 +1,41 @@
+services:
+    # is used for processing sql queries in commands
+    mittax_wsse.commandlinesqlprocessor:
+        class: Mittax\WsseBundle\Command\Service\SqlProcessor
+
+    # build a logger factory
+    mittax_wsse.logger.factory:
+        class: Mittax\WsseBundle\Logger\Factory
+        calls:
+          - [setContainer,["@service_container"] ]
+
+    # set guzzle adapter to guzzle http
+    mittax_wsse.client.adapter:
+        class: Mittax\WsseBundle\Client\Service\Http\GuzzleAdapter
+        calls:
+          - [setLoggerFactory,['@mittax_wsse.logger.factory']]
+
+    # set guzzle adapter to guzzle http
+    mittax_wsse.logger.plugin.file:
+        class: Mittax\WsseBundle\Logger\Plugin\File
+        calls:
+          - [setContainer,["@service_container"] ]
+
+    # set default client to guzzle http
+    mittax_wsse.client.service.header.wsssha512:
+        class: Mittax\WsseBundle\Client\Service\Header\WsseSha512
+
+    # build a security service factory to get security context objects
+    mittax_wsse.security.service.factory:
+        class: Mittax\WsseBundle\Security\Service\Factory
+        arguments: ["@service_container"]
+
+    #provide a facade to reduce wsse requests
+    mittax_wsse.client.service.http.request:
+        class: Mittax\WsseBundle\Client\Service\Http\Request
+        arguments: ['@mittax_wsse.client.adapter','@mittax_wsse.client.service.header.generator', '@mittax_wsse.security.service.factory']
+
+    # The headergenerator uses Sha512 by default, You can change that here
+    mittax_wsse.client.service.header.generator:
+        class: Mittax\WsseBundle\Client\Service\Header\Generator
+        arguments: ['@mittax_wsse.client.service.header.wsssha512','@service_container']
