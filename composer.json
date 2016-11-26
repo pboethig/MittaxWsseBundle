@@ -1,7 +1,8 @@
 {
-    "name": "mittax/wsse",
+    "name": "mittax/wsse-bundle",
     "license": "MIT",
-    "type": "project",
+    "type": "symfony-bundle",
+    "keywords":["WSSE", "Webservice security"],
     "autoload": {
         "psr-4": {
             "Mittax\\WsseBundle\\": ""
@@ -12,7 +13,7 @@
         {
             "name": "Peter Böthig",
             "email": "pboethig@gmail.com",
-            "homepage": "https://github.com/pboethig/mittax-wsse.git"
+            "homepage": "https://github.com/pboethig/MittaxWsseBundle"
         }
     ],
     "autoload-dev": {
