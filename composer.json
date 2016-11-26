@@ -1,5 +1,6 @@
 {
     "name": "mittax/wsse-bundle",
+    "description":"A Symfony bundle to secure API Calls with Webservice Security Standard. Ported from SOAP. Mittax WSSE Bundle is a Wrapper on Symfonies WSSE Authprovider. (http://symfony.com/doc/current/security/custom_authentication_provider.html)",
     "license": "MIT",
     "type": "symfony-bundle",
     "keywords":["WSSE", "Webservice security"],
