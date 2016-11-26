@@ -32,7 +32,8 @@ class ClientTest extends AbstractKernelTestCase
      */
     public function testCreateuserTableInTestDatabase()
     {
-        $this->initDatabase(__DIR__ . '/Fixures', 'fos_user.sql');
+        /** SAMPLE, HOW TO LOAD TESTDATA INTO DATABASE */
+        //$this->initDatabase(__DIR__ . '/Fixures', 'fos_user.sql');
     }
 
     public function testLoggerFactoryInstance()
@@ -61,9 +62,9 @@ class ClientTest extends AbstractKernelTestCase
         $this->assertArrayHasKey('X-WSSE',  $headerOptions);
     }
 
-    public function _testGetHeader()
+    public function testGetHeader()
     {
-        $ĥeaderString = $this->getHeaderStringByUsername('mittax3');
+        $ĥeaderString = $this->getHeaderStringByUsername($this->_adminuser);
 
         $this->assertContains('Username', $ĥeaderString);
 
@@ -100,23 +101,12 @@ class ClientTest extends AbstractKernelTestCase
         $this->assertContains('Nonce', $this->_requestClient->getWsseHeaderOptions()['X-WSSE']);
     }
 
-    /**
-     * @expectedException \GuzzleHttp\Exception\ClientException
-     * @expectedExceptionMessage Unauthorized
-     */
-    public function testIncorrectHeaderLeadsToA401UnauthorizedHeader()
-    {
-        $path = '/emotico';
 
-        $promise = $this->_requestClient->async('GET', $this->_serverUrl . $path, ['X-Wsse']);
-
-        $this->_requestClient->handlePromise($promise, $this->_successCallback, $this->_errorCallback);
-    }
 
     /**
      * Test a response on a list api method and checks json decoded objectlist for a available items
      */
-    public function test200ResponsesAsync()
+    public function _test200ResponsesAsync()
     {
         $path = '/emotico';
 
@@ -156,21 +146,13 @@ class ClientTest extends AbstractKernelTestCase
      */
     public function test200ResponsesSyncronosly()
     {
-        $path = '/emotico';
+        $path = '/wsse/' . $this->_adminuser;
 
         $response = $this->_requestClient->request('GET', $this->_serverUrl . $path, $this->_wsseHeaderOptions);
 
         $json = (string)$response->getBody();
 
         $this->assertNotEmpty( $json);
-
-        $objectList = json_decode($json);
-
-        $this->assertGreaterThan(0, count($objectList));
-
-        $this->assertObjectHasAttribute('id', $objectList[0]);
-
-        $this->assertGreaterThan(0, $objectList[0]->id);
     }
 
     /**
@@ -178,7 +160,7 @@ class ClientTest extends AbstractKernelTestCase
      */
     public function testCorrectHeaderLeadsNotToForbiddenOrUnauthorizedHeader()
     {
-        $uri = $this->_serverUrl . '/emotico';
+        $uri = $this->_serverUrl . '/wsse/' . $this->_adminuser;
 
         $promise = $this->_requestClient->async('GET',  $uri, $this->_wsseHeaderOptions);
 
@@ -191,7 +173,7 @@ class ClientTest extends AbstractKernelTestCase
      */
     public function testCorrectHeaderTo403ForbiddenHeader()
     {
-        $path = '/emotico';
+        $path = '/wsse/asdasd';
 
         $manipulatedHeader = $this->_wsseHeaderOptions;
 
@@ -201,7 +183,4 @@ class ClientTest extends AbstractKernelTestCase
 
         $this->_requestClient->handlePromise($promise, $this->_successCallback, $this->_errorCallback);
     }
-    
-    
-    
 }

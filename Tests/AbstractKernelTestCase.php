@@ -14,6 +14,7 @@ require_once __DIR__ . '/../../../../app/AppKernel.php';
 
 use Doctrine\ORM\EntityManager;
 use Mittax\WsseBundle\Client\Service\Header\Generator;
+use Mittax\WsseBundle\Client\Service\Header\WsseSha512;
 use Mittax\WsseBundle\Logger\Factory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -21,6 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\DependencyInjection\Dump\Container;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager;
@@ -92,7 +94,7 @@ class AbstractKernelTestCase extends KernelTestCase
     /**
      * @var string
      */
-    protected $_adminuser = 'mittax3';
+    protected $_adminuser;
 
     /**
      * @var LoggerInterface
@@ -133,6 +135,8 @@ class AbstractKernelTestCase extends KernelTestCase
         $this->container = $this->_kernel->getContainer();
 
         $this->_entityManager = $this->container->get('doctrine');
+
+        $this->_adminuser = $this->container->getParameter('mittax.wsse.integrationtestsusername');
 
         $this->_wsseSha512HeaderService = $this->container->get('mittax_wsse.client.service.header.wsssha512');
 

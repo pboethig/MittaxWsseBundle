@@ -47,7 +47,7 @@ class WsseController extends FOSRestController
      * @ApiDoc(
      *  resource=true,
      *  description="get a wsse header for a specific username",
-     *  section = "Emotico/WSSE",
+     *  section = "WSSE",
      *  statusCodes={
      *     200="Returned when successful",
      *     404="No user found for this username"

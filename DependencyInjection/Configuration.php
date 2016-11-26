@@ -60,8 +60,12 @@ class Configuration implements ConfigurationInterface
                         ->cannotBeEmpty()
                     ->end()
                     ->scalarNode('usermanager')
-                    ->isRequired()
-                    ->cannotBeEmpty()
+                        ->isRequired()
+                        ->cannotBeEmpty()
+                    ->end()
+                    ->scalarNode('integrationtestsusername')
+                        ->isRequired()
+                        ->cannotBeEmpty()
                     ->end()
                 ->end();
 

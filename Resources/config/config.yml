@@ -26,3 +26,8 @@ mittax_wsse:
     # name of the column where the passwords are stored
     passwordcolumn: password
 
+    #################################################################################################
+    # CHANGE ME !!!!!
+    # UNITTEST / Functional Test. This username is required to run unittests
+    # Add you own user here
+    integrationtestsusername: mittax

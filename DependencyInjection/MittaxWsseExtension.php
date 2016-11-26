@@ -72,6 +72,11 @@ class MittaxWsseExtension extends Extension implements PrependExtensionInterface
 
             $container->setParameter('mittax.wsse.usermanager', $configuration['usermanager']);
             $container->prependExtensionConfig($key, $configuration);
+
+            $container->setParameter('mittax.wsse.integrationtestsusername', $configuration['integrationtestsusername']);
+            $container->prependExtensionConfig($key, $configuration);
+
+
         }
     }
 

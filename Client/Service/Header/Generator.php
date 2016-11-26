@@ -9,9 +9,9 @@
 namespace Mittax\WsseBundle\Client\Service\Header;
 
 
+use Mittax\WsseBundle\Exception\UserNotFoundException;
 use Mittax\WsseBundle\Security\Header\WsseHeader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Response;
 class Generator
 {
@@ -56,7 +56,7 @@ class Generator
 
         $user = $this->_container->get($userManagerServiceName)->findUserByUsername($username);
 
-        if(!$user) return false;
+        if(!$user) throw new UserNotFoundException('user: ' . $username . ' not found');
 
         $salt = $this->_container->getParameter('mittax.wsse.salt');
 
