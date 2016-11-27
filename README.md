@@ -9,10 +9,27 @@
 ### composer:
 ```composer require mittax/wsse-bundle```
 
+**Register bundle**
+app/AppKernel.php
+```php 
+.....
+new Mittax\WsseBundle\MittaxWsseBundle(),
+```
+
+### running unit / functional tests.
+the package comes with functionaltests on its own apimethod. Under vendor/mittax/wsse-bundle/controllers there is a defaultcontroller with a apimethod to generate wsse headers. To get that tests running a testuser is needed. If you want to use the tests, add a user "mittax" to your database or change the user to your testuser:
+
+vendor/mittax/wsse-bundle/Resources/config/config.yml 
+```php 
+    integrationtestsusername: mittax
+```
+
+
+
 #usage
 ## Consume a WSSE secured api method.
 
-After installation all defined firewallrules requests are secured with a X-WSSE Header. Generate a X-WSSE Header:
+After installation all defined firewallrules requests are secured with a X-WSSE Header. To consume a firewall secured api path we need to generate a X-WSSE Header, wich has to be sended for each request. Here is the samplecode how to use the wsse client, provided by this package:
 
 ```php 
 //your clientobject
@@ -32,6 +49,8 @@ $response = $client->request('GET', $uri, $headerOptions);
 $response = (string)$response->getBody();
 
 ```
+
+Ofcourse you can generate a wsse headerstring via commandline. MittaxWsseBunde provides a cli extension for that.  
 
 ##generate a wsse header directly on a commandline
 ### open a terminal to your projectroot
@@ -68,8 +87,8 @@ security:
           wsse:      { lifetime: 60 }
 ```
 
-## configure your security wsse layer. Try to move the vendor config to your config
-src/vendor/mittax/wsse-bundle/Resources/config.yml
+## configure your security wsse layer.
+app/config/parameter.yml
 
 ```yaml
 #configure the wsse
