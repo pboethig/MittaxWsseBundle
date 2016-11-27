@@ -20,8 +20,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Dump\Container;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -38,10 +38,10 @@ class AbstractKernelTestCase extends KernelTestCase
     /**
      * @var string
      */
-    protected $_serverUrl = 'http://nginx';
+    protected $_serverUrl;
 
     /**
-     * @var Container
+     * @var ContainerInterface
      */
     public $container;
 
@@ -163,6 +163,9 @@ class AbstractKernelTestCase extends KernelTestCase
         {
             $logger->warning(PHP_EOL . PHP_EOL .' Code: '. $exception->getCode() .' Message: '.$exception->getMessage(). ' in class: ' . __CLASS__ . '  in Line:' . __LINE__);
         };
+
+
+        $this->_serverUrl = $this->container->getParameter('mittax.wsse.integrationtestsserverurl');
 
         $this->_initApplication();
     }

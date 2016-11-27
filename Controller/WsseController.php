@@ -57,15 +57,14 @@ class WsseController extends FOSRestController
      * @Route("/wsse/{username}")
      * @Method({"GET"})
      * @return Response
-     *
      */
     public function getByUsername(Request $request)
     {
         /** @var $headerGenerator Generator */
         $headerGenerator = $this->container->get('mittax_wsse.client.service.header.generator');
 
-        $wsseHeaderObject = $headerGenerator->generateWsseHeader($request->get('username'));
+        $WSSEHeaderObject = $headerGenerator->generateWsseHeader($request->get('username'));
 
-        return $headerGenerator->toResponse($wsseHeaderObject);
+        return $headerGenerator->toResponse($WSSEHeaderObject);
     }
 }

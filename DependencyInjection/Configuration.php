@@ -67,6 +67,10 @@ class Configuration implements ConfigurationInterface
                         ->isRequired()
                         ->cannotBeEmpty()
                     ->end()
+                    ->scalarNode('integrationtestsserverurl')
+                        ->isRequired()
+                        ->cannotBeEmpty()
+                    ->end()
                 ->end();
 
         return $treeBuilder;

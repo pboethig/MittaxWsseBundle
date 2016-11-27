@@ -51,7 +51,6 @@ class ClientTest extends AbstractKernelTestCase
         $this->assertInstanceOf(ILogger::class, $logger);
     }
 
-
     /**
      * Test fileLogger plugin
      */
@@ -87,6 +86,7 @@ class ClientTest extends AbstractKernelTestCase
 
     /**
      * Test defaultoptions for X-WSSE header values
+     * @todo: move to functionaltests
      */
     public function testDefaultOptionsForWSSEHeaderValues()
     {
@@ -100,8 +100,6 @@ class ClientTest extends AbstractKernelTestCase
 
         $this->assertContains('Nonce', $this->_requestClient->getWsseHeaderOptions()['X-WSSE']);
     }
-
-
 
     /**
      * Test a response on a list api method and checks json decoded objectlist for a available items
@@ -139,7 +137,6 @@ class ClientTest extends AbstractKernelTestCase
 
         $this->assertGreaterThan(0, $objectList[0]->id);
     }
-
 
     /**
      * Test a response on a list api method and checks json decoded objectlist for a available items

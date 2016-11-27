@@ -8,8 +8,6 @@
 
 namespace Mittax\WsseBundle\Tests;
 
-use Mittax\WsseBundle\Client\Service\Header\WsseSha512;
-use Mittax\WsseBundle\Security\Encoder\IEncoder;
 use Mittax\WsseBundle\Security\Encoder\Sha512;
 use Mittax\WsseBundle\Security\Header\WsseHeader;
 
@@ -17,7 +15,7 @@ use Mittax\WsseBundle\Security\Header\WsseHeader;
  * Class WsseHeaderTest
  * @package Mittax\WsseBundle\Tests\Security
  */
-class WsseHeaderTest extends AbstractTest
+class WsseHeaderTest extends AbstractKernelTestCase
 {
     /**
      * @var string
@@ -35,11 +33,6 @@ class WsseHeaderTest extends AbstractTest
     private $_username = 'mittax';
 
     /**
-     * @var \Mittax\WsseBundle\Client\Service\Header\WsseSha512
-     */
-    private $_wsseSha512HeaderService;
-
-    /**
      * @var \Mittax\WsseBundle\Security\Header\WsseHeader
      */
     private $_sha512Header;
@@ -52,7 +45,9 @@ class WsseHeaderTest extends AbstractTest
 
     public function setUp()
     {
-        $this->_wsseSha512HeaderService = $this->getContainer()->get('mittax_wsse.client.service.header.wsssha512');
+        parent::setUp();
+
+        $this->_wsseSha512HeaderService = $this->container->get('mittax_wsse.client.service.header.wsssha512');
 
         $this->_sha512Header = $this->_wsseSha512HeaderService->getHeader($this->_username, $this->_password, $this->_salt);
 

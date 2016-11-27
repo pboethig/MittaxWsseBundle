@@ -6,11 +6,10 @@ use Mittax\WsseBundle\Security\Encoder\Sha512;
 use Mittax\WsseBundle\Exception\LifetimeNotFountException;
 use Mittax\WsseBundle\Exception\SaltNotFountException;
 use Mittax\WsseBundle\Security\Encoder\Type\TSha512;
-use Mittax\WsseBundle\Tests\AbstractTest;
 
 require_once __DIR__. '/../../../../app/autoload.php';
 
-class ConfigurationTest extends AbstractTest
+class ConfigurationTest extends \Mittax\WsseBundle\Tests\AbstractKernelTestCase
 {
 
     public function setUp()
@@ -79,9 +78,7 @@ class ConfigurationTest extends AbstractTest
      */
     public function testGetSalt()
     {
-        $container = $this->getContainer();
-
-        $salt = $container->getParameter('mittax.wsse.salt');
+        $salt = $this->container->getParameter('mittax.wsse.salt');
 
         $this->assertNotEmpty($salt);
     }
@@ -91,9 +88,7 @@ class ConfigurationTest extends AbstractTest
      */
     public function testGetLifetime()
     {
-        $container = $this->getContainer();
-
-        $lifetime = $container->getParameter('mittax.wsse.lifetime');
+        $lifetime = $this->container->getParameter('mittax.wsse.lifetime');
 
         $this->assertNotEmpty($lifetime);
     }
@@ -103,9 +98,7 @@ class ConfigurationTest extends AbstractTest
      */
     public function testGetEncoder()
     {
-        $container = $this->getContainer();
-
-        $encoder = $container->getParameter('mittax.wsse.encoder');
+        $encoder = $this->container->getParameter('mittax.wsse.encoder');
 
         $this->assertNotEmpty($encoder);
     }
@@ -115,9 +108,7 @@ class ConfigurationTest extends AbstractTest
      */
     public function testGetPreventReplayAttacks()
     {
-        $container = $this->getContainer();
-
-        $encoder = $container->getParameter('mittax.wsse.preventreplayattacks');
+        $encoder = $this->container->getParameter('mittax.wsse.preventreplayattacks');
 
         $this->assertNotNull($encoder);
     }
@@ -127,9 +118,7 @@ class ConfigurationTest extends AbstractTest
      */
     public function testEncoderInstance()
     {
-        $container = $this->getContainer();
-
-        $encoder = $container->getParameter('mittax.wsse.encoder');
+        $encoder = $this->container->getParameter('mittax.wsse.encoder');
 
         $encoder = new $encoder();
 
@@ -143,9 +132,7 @@ class ConfigurationTest extends AbstractTest
      */
     public function testEncoderImplementsInterface()
     {
-        $container = $this->getContainer();
-
-        $encoder = $container->getParameter('mittax.wsse.encoder');
+        $encoder = $this->container->getParameter('mittax.wsse.encoder');
 
         $reflectionClass = new \ReflectionClass(new $encoder());
 
@@ -159,11 +146,9 @@ class ConfigurationTest extends AbstractTest
     {
         $expected = 'N2Y4MDVmYmU4M2IzZWI1NDUzMDhkNGQ3MTU0N2U3MTRkN2IyM2M4NTUyZTAyNGQ2Yzc0ZTUxYzMxMzc3NzJiOGRmMTE2ZDI0YmFlYTkyZDBjN2EzOTEyZWRmNzlmMjNjODA3YTFlODI0NmVlYzY0MjlmNDRmZTVmOTM0Mzg5Zjg=';
 
-        $container = $this->getContainer();
+        $encoder = $this->container->getParameter('mittax.wsse.encoder');
 
-        $encoder = $container->getParameter('mittax.wsse.encoder');
-
-        $salt = $container->getParameter('mittax.wsse.salt');
+        $salt = $this->container->getParameter('mittax.wsse.salt');
 
         $string = "1155817ba6d9474a2016-10-31T21:41:01+0000e/wAADsG9sUckbMUc140qaQ5hqY=";
 

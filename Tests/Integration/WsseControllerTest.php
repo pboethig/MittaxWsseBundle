@@ -8,7 +8,6 @@
 
 namespace Mittax\WsseBundle\Tests\Client\Service\Integration;
 
-
 use Mittax\WsseBundle\Tests\AbstractKernelTestCase;
 
 class WsseControllerTest extends AbstractKernelTestCase
@@ -22,9 +21,7 @@ class WsseControllerTest extends AbstractKernelTestCase
     {
         $wsseHeader = $this->_requestClient->getWsseHeaderRequestOtionsByUsername($this->_adminuser);
 
-        $username = 'mittax2';
-
-        $response = $this->_requestClient->request('GET', $this->_serverUrl . '/wsse/'. $username, $wsseHeader);
+        $response = $this->_requestClient->request('GET', $this->_serverUrl . '/wsse/'. $this->_adminuser, $wsseHeader);
 
         $this->assertEquals(200, $response->getStatusCode());
     }
